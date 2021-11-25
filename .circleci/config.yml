@@ -21,4 +21,6 @@ workflows:
   build_and_test:
     jobs:
       - build
+          name: "Build"
       - test
+          name: "Test"
