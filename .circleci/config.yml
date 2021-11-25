@@ -1,17 +1,21 @@
 version: 2.1
 
-# executor:
-#   admin-web:
-#     working_directory: /apps/admin-web
-
 jobs:
   build:
+    docker:
+      - image: cimg/<language>:<version TAG>
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
       - checkout
       - run: echo "this is the build job"
-      # - run: yarn install
-      # - run: yarn run build
   test:
+    docker:
+      - image: cimg/<language>:<version TAG>
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
       - checkout
       - run: echo "this is the test job"
@@ -20,7 +24,5 @@ jobs:
 workflows:
   build_and_test:
     jobs:
-      - build:
-          name: "Build"
-      - test:
-          name: "Test"
+      - build
+      - test
